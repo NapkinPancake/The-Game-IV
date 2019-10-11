@@ -1,13 +1,25 @@
-<div class="row">
+    <div class="row">
         <div class="col-4">
             <input type="image" id="BackGroundImg" alt="meme"
                 src="https://hsl.guru/wp-content/uploads/2015/11/14279748638979.jpg">
         </div>
         <div class="col-4" class="center">
-            <h1>Вгадайка III</h1>
+            <h1>Вгадайка III <?php
+             $name = $_POST["username"] ;
+             $ok = true;
+             if (!isset($name) || $name === "") {
+                $ok = false;
+             } else {
+                 $ok = true ;
+             }
+             if ( $ok ) {
+                  print($name);
+                }
+              ?> 
+             </h1>
             <br>
             <form>
-                <input class="Text" type="text" name="try" placeholder="Нумерочок від 1 до 10 <?php $name = $_POST["PlayerName"]; if(isset($name)) { echo $name;} else { echo ", nobody";}?> " id="try1">
+                <input class="Text" type="text" name="try" placeholder="Нумерочок від 1 до 10 " id="try1">
                 <br><br>
                 <input class="Text" type="text" readonly name="answer" id="answer1" value="">
                 <br>

@@ -15,7 +15,9 @@
 <body>
     <div class="container">
      <?php include "UserForm.php"?>
+     <?php ?>
      <?php include "GameWindow.php"?>
+     <a href='form.php'>try this fucking form</a>
     </div>
 
     <script src="TheGame.js"></script>

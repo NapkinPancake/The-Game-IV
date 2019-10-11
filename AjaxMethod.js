@@ -1,17 +1,16 @@
-var  data = {name: username.value}
 
-$(document).ready(function() {
-    $('#nameButt').click( function() { 
-        $.ajax({
-            method: "POST" , 
-            url: "index.php",
-            data: data,
-            success: () =>
-            console.log("Data was sent") 
-        })
-        return false;
+
+/*$(document).ready(function() {
+    $('#userForm').ajaxForm({
+        method: "POST" , 
+        url: "GameWindow.php",
+        
+        success: () =>
+        console.log("Data was sent") 
     })
-})
+    return false;
+    }) */
+
 
 
 

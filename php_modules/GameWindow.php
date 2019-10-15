@@ -4,19 +4,7 @@
                 src="https://hsl.guru/wp-content/uploads/2015/11/14279748638979.jpg">
         </div>
         <div class="col-4" class="center">
-            <h1>Вгадайка III <?php
-             $name = $_POST["username"] ;
-             $ok = true;
-             if (!isset($name) || $name === "") {
-                $ok = false;
-             } else {
-                 $ok = true ;
-             }
-             if ( $ok ) {
-                  print($name);
-                }
-              ?> 
-             </h1>
+            <h1>Вгадайка III </h1>
             <br>
             <form>
                 <input class="Text" type="text" name="try" placeholder="Нумерочок від 1 до 10 " id="try1">
@@ -30,6 +18,6 @@
             </form>
         </div>
         <div class="col-4" id="WinForm">
-            <input type="image" id="WinImg" alt="Fredie" src="meme.png">
+            <input type="image" id="WinImg" alt="Fredie" src="img/meme.png">
         </div>
     </div>

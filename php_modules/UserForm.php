@@ -1,7 +1,7 @@
 <div class="row">
             <div class="col-4"></div>
             <div class="col-4" class="UsernameField">
-                <form method="POST" id=userForm>
+                <form method="POST" id=userForm action=''>
                     <input type="text" name="username" id="Username" placeholder="Player Name">
                     <input type="submit" name="submit" id="nameButt" value="Choose" onclick="enteringName();setLvl()">
                     <select name="lvl" id="lvl">" 

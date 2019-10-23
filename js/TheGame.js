@@ -3,42 +3,43 @@ function getTheNumber(min, max) {
 }
 ////////////////////////////////////////////////////////////////////
 
-let answer
-let levelPoints
+let answer = getTheNumber(1, 10);
+let levelPoints = 10;
 
-function setLvl() {
-    if (lvl.value == "Easy") {
-        answer = getTheNumber(1, 10);
-        levelPoints = 10;
-        console.log(answer);
-    } else if (lvl.value == "Medium") {
-        answer = getTheNumber(1, 30);
-        answerField.placeholder = "Нумерочок від 1 до 30"
-        levelPoints = 30;
-        console.log(answer)
-    } else if (lvl.value == "Hard") {
-        answer = getTheNumber(1, 50);
-        answerField.placeholder = "Нумерочок від 1 до 50";
-        levelPoints = 50;
-        console.log(answer)
-    } else {
 
-    }
-}
+
+$('#dropEasy').click( function () {
+    $('#try1').attr('placeholder','Number from 1 to 10');
+    answer = getTheNumber(1, 10);
+    levelPoints = 10;
+    console.log(answer);
+});
+$('#dropMedium').click( function () {
+    $('#try1').attr('placeholder','Number from 1 to 30');
+    answer = getTheNumber(1, 30);
+    levelPoints = 30;
+    console.log(answer);
+    
+});
+$('#dropHard').click( function () {
+    $('#try1').attr('placeholder','Number from 1 to 50');
+    answer = getTheNumber(1, 50);
+    levelPoints = 50;
+    console.log(answer);
+}) 
+
 ////////////////////////////////////////////////////////////////////
 
-var result
-var usersNumber
-var tryNumber = 0
-var games = 0
+let result
+let usersNumber
+let tryNumber = 0
+let games = 0
 var victories = 0
 var button1 = document.getElementById("pushOne")
 var textField = document.getElementById("try1")
 var readonlyField = document.getElementById("answer1")
 var answerField = document.getElementById("try1")
 var attempt = document.getElementById("try1")
-
-let rating
 
 function getValue() {
     usersNumber = attempt.value;
@@ -52,9 +53,6 @@ function getValue() {
         result = "=";
         victories += 1;
         document.getElementById("WinForm").style.display = "block";
-        games += 1;
-        creatingRait();
-        NameAndRait();
     } else if ((3 * usersNumber) < answer) {
         readonlyField.value = "То зовсім мало!";
         answerField.value = "";
@@ -89,9 +87,8 @@ function getValue() {
     }
 }
 
-function triesCounter() {
-    tryNumber += 1;
-}
+
+//////////////////////////////////////////////////////////////////////////////////////////////
 
 function UserTry() {
     this["Number of try"] = tryNumber,
@@ -102,24 +99,26 @@ function UserTry() {
 
 
 function savingResulsts() {
-    let userTries = new UserTry()
-    //console.log(userTries)
-    BigBase.push(userTries)
-    console.log(BigBase)
+    if (usersNumber != "" && usersNumber != 0) {  
+        let userTries = new UserTry()
+        BigBase.push(userTries)
+        console.log(BigBase)
+    }
+ 
 }
 
 let BigBase = []
 
-//var liedershipTable
+
 
 function raunds() {
     if (BigBase.length >= 10) {
-        document.getElementById("answer1").value = "Шкода, але відповідь " + answer;
-        button1.disabled = true;
-        textField.disabled = true;
+        document.getElementById("answer1").value = "Шкода, але відповідь " + answer; //   <------------------------- JQuery
+        button1.disabled = true;                                                     //
+        textField.disabled = true;                                                   //
         NameAndRait();
         saveRait();
-        
+
     } else if (usersNumber == answer) {
         button1.disabled = true;
         textField.disabled = true;
@@ -136,68 +135,66 @@ function theNewBeginning() {
     getTheNumber(1, 10);
     answer = getTheNumber(1, 10);
     BigBase.length = 0;
-    document.getElementById("WinForm").style.display = "none";
-
+    //document.getElementById("WinForm").style.display = "none";
+    $('#WinForm').hide(250);
 }
 
 
+
 //=====================================================================================================================
+
+
 //=====================================================================================================================
 
 
 let username = document.getElementById("Username");
 let button2 = document.getElementById("resetButt");
-let lvl = document.getElementById("lvl");
 
-let ThatsTable
+
+let score = $('#LiederShipTable');
+let currentPoints = $('#currentPoints');
+let answerCheck = $('#try1');
+
 
 $(document).ready(function () {
-    
-    $("#nameButt").click(function () {
-        $("#Username").prop({ disabled: false })
-        //localStorage.setItem(username.value, FinalRait)
-        addRait = new NameAndRait();
-        liedershipTable.push(addRait);
-        if (username.value.length == 0) {
-            $("#lvl").prop({ disabled: true })
-            $("#try1").prop({ disabled: true })
-            $("#pushOne").prop({ disabled: true })
-        } else if (username.value.length > 0) {
-            $("#lvl").prop({ disabled: false })
-            $("#try1").prop({ disabled: false })
-            $("#pushOne").prop({ disabled: false })
-        } else {
-        }
-        games = 0;
-        rating = 0;
-        tryNumber = 0;
-        raitSum = []
-    })
-
-
-    $("#lvl").click(function () {
-        setLvl();
-    })
+    console.log(answer);
+    score.hide();
     $("#pushOne").click(function () {
+        getValue();
+        raunds();
+        if (usersNumber != "" && usersNumber != 0) {  
+            tryNumber += 1 ;
+            savingResulsts();
+        };
+        console.log(answerCheck);
         $("#lvl").prop({ disabled: true });
-        $("#nameButt").prop({ disabled: true });
-        $("#Username").prop({ disabled: true })
+
         if (usersNumber == answer) {
-            console.log(username.value + ":" + FinalRait);
-            function CreateRait() {
-                $('#LiederShipTable').prepend('<h5>'+username.value+":"+FinalRait+'</h5>')
-            }
-            CreateRait();
+            creatingRait();
+            NameAndRait();
+            POST_score();
+            console.log("Your rate : "+FinalRait.toFixed(2));  //   <----------------------------  CHANGE AFTER INCLUDING LOG FORM
+            score.empty();  
+            score.prepend("Your score : "+ FinalRait.toFixed(2));
+            score.fadeIn(750);
+
+            currentPoints.empty();  
+            currentPoints.prepend("+"+rating);
+            currentPoints.fadeIn(750);
         }
 
     })
 
     $("#resetButt").click(function () {
         $("#lvl").prop({ disabled: false });
-        $("#nameButt").prop({ disabled: false });
-        console.log(answer)
+        theNewBeginning();
+        tryNumber = 0;
+        console.log(answer);
+        score.hide(750);
+        currentPoints.hide(750)
     })
 
+    let liedershipTable = []
 
     $(window).on('unload', function () {
         function saveRait() {
@@ -213,50 +210,15 @@ $(document).ready(function () {
 
 })
 
-
-
-if (username.value.length == 0) {
-    textField.disabled = true;
-    button1.disabled = true;
-    button2.disabled = true;
-    $("#lvl").prop({ disabled: true });
-
-}
-
-function enteringName() {
-    if (username.value.length > 0) {
-        textField.disabled = false;
-        button1.disabled = false;
-        button2.disabled = false;
-        document.getElementById("nameButt").value = "Change name";
-    }
-}
-
-function blockTheName() {
-    if (username.value.length > 0) {
-        username.disabled = true;
-    }
-}
-
-function unblockTheName() {
-    username.disabled = false;
-}
-
-function NameAndRait() {
-    this[username.value] = FinalRait;
-}
-
-
-let liedershipTable = []
-let CodedRait
-let addRait = new NameAndRait();
-let content1
 let raitSum = []
+let sum;
+let FinalRait;
+let rating;
 
-var sum = 0;
-var FinalRait
+
 
 function creatingRait() {
+    games += 1;
     rating = levelPoints / tryNumber
     raitSum.push(rating);
     function summingUp(array) {
@@ -268,4 +230,38 @@ function creatingRait() {
     summingUp(raitSum);
     FinalRait = sum / games;
     tryNumber = 0;
+}
+
+function NameAndRait() {
+    //Score = FinalRait;
+}
+
+///////////////////////////////////////////////////
+
+function POST_score() {
+    let data = rating;
+    let hello = "hello"
+    $.post( 'includes/save_results.php', 
+         { result: data }, 
+         () => {  console.log("Data was sent"); 
+        }
+    )
+
+    $.post ( 'includes/global_score.php' ,
+    { globalScore : hello} , 
+    () => console.log("Global score have to change") 
+    )
+ }
+    
+
+function getScoreFromServer() {
+    $.ajax({
+        url: './api.php?action=get&type=score',
+        success: function (data) {
+            console.log('Score from server:', JSON.stringify(data))
+        },
+        error: function (err) {
+            console.error('Score from server: error', err)
+        }
+      })
 }

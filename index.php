@@ -1,3 +1,5 @@
+<?php session_start(); ?> 
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -14,13 +16,15 @@
 
 <body>
     <div class="container">
-     <?php include "php_modules/UserForm.php"?>
+     <?php include "php_modules/navbar.php" ?>
+     
+     <?php include "php_modules/game_window.php"?>
      <?php ?>
-     <?php include "php_modules/GameWindow.php"?>
     </div>
 
+    
     <script src="js/TheGame.js"></script>
-    <script src="js/AjaxMethod.js"></script>
+   
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
         integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
         </script>

@@ -159,6 +159,8 @@ let answerCheck = $('#try1');
 $(document).ready(function () {
     console.log(answer);
     score.hide();
+    topListDisplay();
+    showGlobalScore();
     $("#pushOne").click(function () {
         getValue();
         raunds();
@@ -173,14 +175,18 @@ $(document).ready(function () {
             creatingRait();
             NameAndRait();
             POST_score();
+            showGlobalScore();
+            topListDisplay();
             console.log("Your rate : "+FinalRait.toFixed(2));  //   <----------------------------  CHANGE AFTER INCLUDING LOG FORM
             score.empty();  
             score.prepend("Your score : "+ FinalRait.toFixed(2));
             score.fadeIn(750);
 
             currentPoints.empty();  
-            currentPoints.prepend("+"+rating);
+            currentPoints.prepend("+"+rating.toFixed(2));
             currentPoints.fadeIn(750);
+
+          
         }
 
     })
@@ -207,8 +213,25 @@ $(document).ready(function () {
 
     })
 
+    let timesBtnClicked = 0;
+
+    $("#tableHideBtn").click( function() {
+            timesBtnClicked += 1;
+            console.log(timesBtnClicked);
+             if (timesBtnClicked&1) {
+                $("#tableHideBtn").val("Show Rating");
+            } else {
+                $("#tableHideBtn").val("Hide Rating");
+            }
+            $('#topList').toggle("blind");
+        
+        
+    });
 
 })
+
+
+
 
 let raitSum = []
 let sum;
@@ -239,29 +262,22 @@ function NameAndRait() {
 ///////////////////////////////////////////////////
 
 function POST_score() {
-    let data = rating;
-    let hello = "hello"
-    $.post( 'includes/save_results.php', 
-         { result: data }, 
-         () => {  console.log("Data was sent"); 
-        }
-    )
+    $.post('includes/save_results.php',
+    {result : rating}
+    );
+  
+} 
 
-    $.post ( 'includes/global_score.php' ,
-    { globalScore : hello} , 
-    () => console.log("Global score have to change") 
-    )
- }
+function showGlobalScore() {
+    let globalScoreNavbar = $('#globalScore') ;
+    globalScoreNavbar.empty();
+    globalScoreNavbar.load('includes/global_score.php');
+}
+
     
-
-function getScoreFromServer() {
-    $.ajax({
-        url: './api.php?action=get&type=score',
-        success: function (data) {
-            console.log('Score from server:', JSON.stringify(data))
-        },
-        error: function (err) {
-            console.error('Score from server: error', err)
-        }
-      })
+function topListDisplay() {
+    let topList = $('#topList');
+    let topListLength = 10;
+    topList.empty();
+    topList.load('includes/top_list.php' , {length : topListLength});
 }

@@ -1,21 +1,23 @@
 <?php 
 session_start(); 
-$username = $_SESSION['username'];
 include_once '../includes/users_DB.php';
 
-if (isset($_POST['globalScore'])) {
-    if (empty($username)) {
-        header('location: ../index.php?noUsername');
+
+    if (empty($_SESSION['username'])) {
+        echo "OOOPS";
     } else { 
+        $username = $_SESSION['username'];
+
         $sqlSelect = "SELECT * FROM users WHERE Username='$username';";
         $selected = mysqli_query($connectDB, $sqlSelect);
     
         $row = mysqli_fetch_assoc($selected);
-        $score = $row['Score'];
-    
-        $_SESSION['score'] = $score;
-        header('location: ../index.php?displayGlobalScore');
+        $score = $row['Score']; 
+
+        if (is_null($score)) {
+            echo 'Global score: 0.00';
+            
+        } else {
+            echo 'Global score: '.$score;
+        }
     }
-} else { 
-    header('location: ../index.php?noUsername');
-}

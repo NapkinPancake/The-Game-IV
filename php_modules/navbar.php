@@ -5,7 +5,6 @@
         <ul class="navbar-nav mr-auto">
             <li class="nav-item"> 
                 <select name="lvl" class='form-control  form-control-lg' id="lvl">
-                    <option value='' selected disabled hidden>Lvl</option>
                     <option value="Easy" id='dropEasy'>Easy</option>
                     <option value="Medium" id='dropMedium'>Meduim</option>
                     <option value="Hard" id='dropHard'>Hard</option>
@@ -15,13 +14,9 @@
             <li class="nav-item  ml-5 my-auto"> <?php
              if (empty($_SESSION['username'])) {
                  echo " <h4  id='LiederShipTable'> </h4>";
-             } 
-             if (empty($_SESSION['score'])) {
-               echo "";
              } else {
-                    echo "<h4> Global score: ".$_SESSION['score']."</h4>";
-                    
-                }  
+                 echo "<h4  id='globalScore'></h4>";
+             }
                 ?>
             </li> 
          </ul>

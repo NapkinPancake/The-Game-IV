@@ -1,8 +1,14 @@
 
     <div class="row mt-5" >
-        <div class="col-4">
+        <div class="col-2 mt-5">
+        <div id='topList'>
         </div>
-        <div class="col-4 text-center" class="center ">
+        <input type="Button" class='btn btn-outline-dark' id='tableHideBtn' value='Hide Rating'>
+        </div>
+        <div class="col-2 mt-5">
+        
+        </div>
+        <div class="col-4 text-center " class="center">
             <h1>The Game IV </h1>
             <br>
             <form>
@@ -15,6 +21,7 @@
                 <input id="resetButt" class="buttons" type="button" name="resButton" value="Ресет"
                     onclick="form.reset()">
             </form>
+            
         </div>
         <div class="col-4" id="WinForm">
             <input type="image" id="WinImg" alt="Fredie" src="img/meme.png">
